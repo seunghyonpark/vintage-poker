@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
 import setAuthToken from '../helpers/setAuthToken';
 import globalContext from '../context/global/globalContext';
+import config from '../clientConfig';
 
 const useAuth = () => {
   localStorage.token && setAuthToken(localStorage.token);
@@ -29,7 +30,7 @@ const useAuth = () => {
   const register = async (name, email, password) => {
     setIsLoading(true);
     try {
-      const res = await Axios.post('/api/users', {
+      const res = await Axios.post(config.socketURI + '/api/users', {
         name,
         email,
         password,
@@ -51,7 +52,7 @@ const useAuth = () => {
   const login = async (emailAddress, password) => {
     setIsLoading(true);
     try {
-      const res = await Axios.post('/api/auth', {
+      const res = await Axios.post(config.socketURI + '/api/auth', {
         email: emailAddress,
         password,
       });
@@ -71,7 +72,7 @@ const useAuth = () => {
 
   const loadUser = async (token) => {
     try {
-      const res = await Axios.get('/api/auth', {
+      const res = await Axios.get(config.socketURI + '/api/auth', {
         headers: {
           'x-auth-token': token,
         },
