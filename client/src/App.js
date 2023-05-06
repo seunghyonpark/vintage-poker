@@ -37,7 +37,7 @@ const App = () => {
     try {
       const token = localStorage.token;
 
-      const res = await Axios.get('/api/chips/free', {
+      const res = await Axios.get(config.socketURI + '/api/chips/free', {
         headers: {
           'x-auth-token': token,
         },
